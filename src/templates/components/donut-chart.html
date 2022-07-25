@@ -1,0 +1,18 @@
+<div :style="{width: containerSize, height: containerSize}" class="donut-container">
+  <h4 :style="{width: position, height: position, lineHeight: position}">{{data}}</h4>
+  <svg :width="containerSize" :height="containerSize" xmlns="http://www.w3.org/2000/svg">
+    <g>
+      <circle :r="width" :cy="position" :cx="position" stroke-width="10" stroke="#ddd" fill="none"></circle>
+      <circle
+        :r="width"
+        :cy="position"
+        :cx="position"
+        stroke-width="10"
+        :stroke="chartColor"
+        fill="none"
+        :stroke-dasharray="strokeFill"
+        stroke-linecap="round"
+      ></circle>
+    </g>
+  </svg>
+</div>

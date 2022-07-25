@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @font-face {
+        font-family: "Renogare";
+        src: url("http://20.110.8.52/Clashmate-fonts/Renogare-Regular.otf") format("opentype");
+      }
+
+      @font-face {
+        font-family: "Aileron";
+        src: url("http://20.110.8.52/Clashmate-fonts/Aileron-Thin.otf") format("opentype");
+      }
+
+      @font-face {
+        font-family: "AileronBold";
+        src: url("http://20.110.8.52/Clashmate-fonts/Aileron-Bold.otf") format("opentype");
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: "Aileron";
+        font-size: 14px;
+      }
+
+      body {
+        margin: 10px;
+      }
+
+      h1 {
+        color: black;
+        font-size: 2.7em;
+        font-family: "Renogare";
+      }
+
+      h2 {
+        font-size: 400;
+        font-size: 1.8em;
+        font-family: "Aileron";
+      }
+
+      h2.slim {
+        font-weight: 200;
+      }
+
+      h3 {
+        font-weight: 240;
+        text-align: justify;
+        font-size: 1.5em;
+        font-family: "Aileron";
+      }
+
+      h3.slim {
+        font-weight: 200;
+      }
+
+      h4 {
+        font-size: 1.2em;
+        text-align: justify;
+        font-family: "Aileron";
+      }
+
+      p {
+        font-family: "Aileron";
+        /* font-weight: 400; */
+        font-size: 1em;
+        text-align: justify;
+        line-height: 1.35;
+        color: #000;
+      }
+
+      small {
+        font-family: "Aileron";
+        /* font-weight: 400; */
+        font-size: 0.8em;
+        text-align: justify;
+        /* line-height: 1.35; */
+        color: #000;
+      }
+
+      .bar.container {
+        height: 30px;
+        width: 100%;
+        background-color: #d4d4d4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-radius: 4px;
+      }
+
+      .bar.container .progress {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        height: 100%;
+        /* width: 30%; */
+        padding-left: 10px;
+        /* background-color: green; */
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        overflow: visible;
+        white-space: nowrap;
+        color: white;
+        text-shadow: 1px 2px 2px #000;
+        border-radius: 2px;
+      }
+
+      svg {
+        -webkit-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+      }
+
+      .donut-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .donut-container h4 {
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <h3 class="slim">{{title}}</h3>
+      <div class="topics">
+        <table v-if="topics" v-for="(topic,i) in topics" style="width: 100%">
+          <tbody>
+            <tr>
+              <td style="width: 35%; vertical-align: top">
+                <table style="width: 100%">
+                  <tbody>
+                    <tr>
+                      <td style="width: 75%; border-color: red">
+                        <h2 style="margin: 0; padding: 5px 10px">{{topic.title}}</h2>
+                      </td>
+                      <td style="width: 25%; border-color: green; text-align: center">
+                        <donut-chart :data="topic.score"></donut-chart>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="border-color: blue"><small>{{topic.description}}</small></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td style="width: 65%; vertical-align: top">
+                <table>
+                  <tbody>
+                    <tr v-if="topic.strenghts">
+                      <td style="width: 25px"></td>
+                      <td style="width: 200px">
+                        <h4 style="margin: 0">Fortalezas</h4>
+                      </td>
+                      <td
+                        style="overflow: visible; white-space: nowrap; width: 35px; position: relative"
+                        v-for="sub in subTopics"
+                      >
+                        <div
+                          v-if="i===0"
+                          style="
+                            -webkit-transform: rotate(-55deg);
+                            transform: rotate(-55deg);
+                            -webkit-transform-origin: top left;
+                            -ms-transform-origin: top left;
+                            transform-origin: top left;
+                            position: absolute;
+                          "
+                        >
+                          <label>{{sub.title}}</label>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr v-if="topic.strenghts" v-for="strenght in topic.strenghts">
+                      <td style="width: 25px; text-align: center; vertical-align: middle">
+                        <label>{{strenght.score}}</label>
+                      </td>
+                      <td style="width: 200px; max-width: 200px">
+                        <bar-chart :data="strenght.score">{{strenght.title}}</bar-chart>
+                        <!-- <div class="bar container">
+                          <div class="progress">{{strenght.title}}</div>
+                        </div> -->
+                      </td>
+                      <td v-for="sub in strenght.sub">
+                        <!-- <div style="border-radius: 2px; height: 30px; background-color: green"></div> -->
+                        <score-box :showData="true" height="30px" :data="sub.score"></score-box>
+                      </td>
+                    </tr>
+                    <tr v-if="topic.opportunities">
+                      <td style="width: 25px"></td>
+                      <td style="width: 200px">
+                        <h4 style="margin: 0">Retos</h4>
+                      </td>
+                    </tr>
+                    <tr v-if="topic.opportunities" v-for="opportunities in topic.opportunities">
+                      <td style="width: 25px; text-align: center; vertical-align: middle">
+                        <label>{{opportunities.score}}</label>
+                      </td>
+                      <td style="width: 200px">
+                        <bar-chart :data="opportunities.score">{{opportunities.title}}</bar-chart>
+                      </td>
+                      <td v-for="sub in opportunities.sub">
+                        <score-box height="30px" :data="sub.score"></score-box>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </body>
+</html>

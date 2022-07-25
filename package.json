@@ -1,0 +1,28 @@
+{
+  "name": "chart-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "html-pdf": "^3.0.1",
+    "vue": "^3.2.37",
+    "vue-server-renderer": "^2.7.8",
+    "wkhtmltopdf": "^0.4.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "nodemon": "^2.0.16",
+    "vue-loader": "^17.0.0",
+    "vue-template-compiler": "^2.7.8"
+  },
+  "author": "",
+  "license": "ISC"
+}
